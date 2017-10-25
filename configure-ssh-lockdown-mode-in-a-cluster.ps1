@@ -1,6 +1,7 @@
 ##################################################
 # Script: configure-ssh-lockdown-mode-in-a-cluster.ps1
-# Author: Doug DeFrank # Date: 2017-10-14
+# Author: Doug DeFrank
+# Date: 2017-10-14
 #
 # Purpose: Add or remove NTP servers in a VMware cluster
 ##################################################

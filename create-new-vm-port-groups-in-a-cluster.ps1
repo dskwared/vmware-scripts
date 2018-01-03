@@ -7,9 +7,6 @@
 #   switch in a given cluster.
 ############################################################
 
-### Add VMware snap-ins for powershell
-Add-PSSnapin VMware* -ErrorAction SilentlyContinue
-
 Write-Host `n "This script will create new VM port group(s) for an existing standard switch in a given cluster." `n
 
 ### Prompt the user for vCenter Server name, and connect to it.

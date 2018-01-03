@@ -18,7 +18,7 @@ $vCenterServer = Read-Host -Prompt 'Enter the FQDN of the vCenter Server you wan
 Connect-VIServer -Server $vCenterServer -WarningAction SiletlyContinue | Out-Null
 
 ### Prompt the user for the cluster name within that vCenter Server
-$Cluster-Name = Read-Host -Prompt 'Enter the full name of the cluster you want to work with (ex. Prod-Cluster-01)'
+$ClusterName = Read-Host -Prompt 'Enter the full name of the cluster you want to work with (ex. Prod-Cluster-01)'
 
 ### Get information about all VMs in the defined cluster
 $VMs = Get-Cluster -Name $ClusterName | Get-VM | Sort-Object

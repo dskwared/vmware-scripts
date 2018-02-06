@@ -3,7 +3,7 @@
 # Author: Doug DeFrank
 # Date: 2017-10-14
 #
-# Purpose: Add or remove NTP servers in a VMware cluster
+# Purpose: Configure SSH, Lockdown mode for all hosts in a cluster
 ##################################################
 
 Write-Host `n "This script will allow a user to enable or disable SSH as well as Lockdown Mode for all hosts in a cluster."

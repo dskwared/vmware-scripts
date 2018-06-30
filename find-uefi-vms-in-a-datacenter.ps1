@@ -36,7 +36,7 @@ $report = foreach ($vm in $vms) {
 }
 
 ### Check to see if the report is empty
-of (!$report) {
+if (!$report) {
     Write-Host -ForegroundColor Red `n "No UEFI-enabled VMs found."
 }
 

@@ -6,8 +6,6 @@
 # Purpose: Add or remove NTP servers in a VMware cluster
 ##################################################
 
-Add-PSSnapin VMware.VimAutomation.Core
-
 Write-Host `n "This script can add or remove NTP servers in a cluster."
 
 ### Prompt user for vCenter Server name, and connect to it

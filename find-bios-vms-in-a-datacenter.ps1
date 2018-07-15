@@ -37,7 +37,7 @@ $report = foreach ($vm in $vms) {
 
 ### Check to see if the report is empty
 if (!$report) {
-    Write-Host -ForegroundColor Red `n "No BIOS-enabled VMs found."
+    Write-Host -ForegroundColor Red -BackgroundColor Black `n "No BIOS-enabled VMs found."
 }
 
 ### If BIOS VMs are found, ask the user if they want to export the results to a CSV file

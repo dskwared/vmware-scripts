@@ -85,5 +85,5 @@ else {
 }
 
 ### Disconnect from the vCenter Server
-Write-Host `n "Disconnecting from the vCenter Server" `n
+Write-Host -ForegroundColor Green `n "Disconnecting from the vCenter Server $vCenterServer" `n
 Disconnect-VIServer -Server $vCenterServer -confirm:$false | Out-Null

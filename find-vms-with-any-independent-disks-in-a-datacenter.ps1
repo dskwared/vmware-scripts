@@ -45,7 +45,7 @@ $report = foreach ($vm in $vms) {
 
 ### Check to see if the report is empty
 if (!$report) {
-    Write-Host -ForegroundColor Red `n "Report is empty. No VMs found."
+    Write-Host -ForegroundColor Red `n "Report is empty. No VMs with independent disks were found."
 }
 
 else {

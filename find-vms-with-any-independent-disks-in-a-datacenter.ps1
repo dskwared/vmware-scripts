@@ -24,10 +24,10 @@ Catch {
     Exit
 }
 
-### Get all VMs in the chosen cluster
+### Get all VMs in the chosen datacenter
 $DatacenterName = Get-Datacenter | Out-GridView -passthru -Title "Select a datacenter"
 
-### Get all Vms in the chosen cluster
+### Get all Vms in the chosen datacenter
 $vms = $DatacenterName | Get-VM | Sort-Object
 
 ### Set the loop variable to 1

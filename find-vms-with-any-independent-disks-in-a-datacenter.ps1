@@ -38,7 +38,6 @@ $report = foreach ($vm in $vms) {
     Write-Progress -Activity "Scanning for VMs with Independent Disks" -Status "Checking $vm" -PercentComplete ($loop/$vms.count * 100)
 
     ### If the VM boot firmware is set to BIOS, add it to the report
-    #$vm | Select-Object Name, Folder | Where-Object {($_.folder -like "*NoVM*" -or $_.folder -like "*NoBackup*")}
     $vm | Get-HardDisk | Where-Object {$_.Persistence -like "Independent*"}
 
     $loop++

@@ -113,8 +113,9 @@ else {
 
             ### If user chooses 1.) Yes, export to a CSV file in the same location as the script itself
             1 {
-                Write-Host `n "Generating CSV > .\$DatacenterName-VMs-by-Virtual-Hardware-$date.csv"
-                $report | Export-CSV -path ".\$DatacenterName-VMs-by-Virtual-Hardware-$date.csv" -NoTypeInformation
+                $CSVOutputPath = ".\$DatacenterName-VMs-with-Virtual-Hardware-$hwVersionChoice-$date.csv"
+                Write-Host -ForegroundColor "Yellow" `n "Generating CSV > $CSVOutputPath"
+                $report | Export-CSV -path "$CSVOutputPath" -NoTypeInformation
                 $yn = $true
             }
 

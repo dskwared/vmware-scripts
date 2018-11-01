@@ -9,9 +9,18 @@
 
 Write-Host `n "This script will create new VM port group(s) for an existing standard switch in a given cluster." `n
 
-### Prompt the user for vCenter Server name, and connect to it.
+### Prompt user for vCenter Server name, and connect to it
 $vCenterServer = Read-Host -Prompt 'Enter the FQDN of the vCenter Server you want to connect to (ex. vcenter.domain.com)'
-Connect-VIServer -Server $vCenterServer -WarningAction SilentlyContinue | Out-Null
+
+### This Try/Catch statement will stop the script if a vCenter Server doesn't exist, a bad username/password is entered, etc.
+Try {
+    Connect-VIServer -Server $vCenterServer -ErrorAction Stop | Out-Null
+}
+
+Catch {
+    Write-Host -ForegroundColor Red -BackgroundColor Black "Could not connect to the vCenter Server [$vCenterServer]." `n
+    Exit
+}
 
 ### Prompt the user for the cluster name within the defined vCenter Server
 $ClusterName = Read-Host -Prompt 'Enter the full name of the cluster where the VM port group should be created (ex: Cluster01)'
@@ -24,7 +33,7 @@ Do {
      $vSwitch = Read-Host -Prompt 'Enter the name of the vSwitch for the new connection (ex: vSwitch1 or vSwitch2)'
      
      ### Prompt the user for the name of the VM port group to be created
-     $PortGroup = Read-Host -Prompt 'Enter the name of the VM port group you want to create (ex: Prod412)
+     $PortGroup = Read-Host -Prompt 'Enter the name of the VM port group you want to create (ex: Prod412)'
      
      ### Prompt the user for the VLAN ID
      $vlan = ""

@@ -12,8 +12,17 @@ Write-Host `n "This script will find all BIOS-enabled VMs in a specific VMware d
 $date = Get-Date -format "yyyyMMdd"
 
 ### Prompt user for vCenter Server name, and connect to it
-$vCenterServer = Read-Host -Prompt 'Enter the FQDN of the vCenter Server you want to connect to. (vcenter.domain.com)'
-Connect-VIServer -Server $vCenterServer -WarningAction SilentlyContinue | Out-Null
+$vCenterServer = Read-Host -Prompt 'Enter the FQDN of the vCenter Server you want to connect to (ex. vcenter.domain.com)'
+
+### This Try/Catch statement will stop the script if a vCenter Server doesn't exist, a bad username/password is entered, etc.
+Try {
+    Connect-VIServer -Server $vCenterServer -ErrorAction Stop | Out-Null
+}
+
+Catch {
+    Write-Host -ForegroundColor Red -BackgroundColor Black "Could not connect to the vCenter Server [$vCenterServer]." `n
+    Exit
+}
 
 ### Choose a datacenter name
 $DatacenterName = Get-Datacenter | Out-GridView -PassThru -Title "Select a Datacenter"

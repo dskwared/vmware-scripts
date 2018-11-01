@@ -9,8 +9,17 @@
 Write-Host `n "This script will allow a user to enable or disable SSH as well as Lockdown Mode for all hosts in a cluster."
 
 ### Prompt user for vCenter Server name, and connect to it
-$vCenterServer = Read-Host -Prompt 'Enter the FQDN of the vCenter Server you want to connect to. (ex. vcenter.domain.com)'
-Connect-VIServer -Server $vCenterServer -WarningAction SilentlyContinue | Out-Null
+$vCenterServer = Read-Host -Prompt 'Enter the FQDN of the vCenter Server you want to connect to (ex. vcenter.domain.com)'
+
+### This Try/Catch statement will stop the script if a vCenter Server doesn't exist, a bad username/password is entered, etc.
+Try {
+    Connect-VIServer -Server $vCenterServer -ErrorAction Stop | Out-Null
+}
+
+Catch {
+    Write-Host -ForegroundColor Red -BackgroundColor Black "Could not connect to the vCenter Server [$vCenterServer]." `n
+    Exit
+}
 
 ### Prompt the user for the cluster name within that vCenter Server
 $ClusterName = Read-Host -Prompt 'Enter the full name of the cluster you want to work with (ex. ProdCluster01)'
@@ -38,7 +47,7 @@ Do {
 		1 {
 			Write-Host -ForegroundColor Yellow `n "Enabling SSH on all hosts in the $ClusterName cluster."
 			ForEach ($vmHost in $vmHosts) {
-				Start-VMHostService -HostService ($vmHost | Get-VMHostService | Where {$_.key -eq "TSM-SSH"}) -Confirm:$false | Select VMHost,Key,Label,Running
+				Start-VMHostService -HostService ($vmHost | Get-VMHostService | Where-Object {$_.key -eq "TSM-SSH"}) -Confirm:$false | Select-Object VMHost,Key,Label,Running
 			}
 		$cont = $true
 		}
@@ -56,7 +65,7 @@ Do {
 		3 {
 			Write-Host -ForegroundColor Yellow `n "Disabling SSH on all hosts in the $ClusterName cluster."
 			ForEach ($vmHost in $vmHosts) {
-				Stop-VMHostService -HostService ($vmHost | Get-VMHostService | Where {$_.key -eq "TSM-SSH"}) -Confirm:$false | Select VMHost,Key,Label,Running
+				Stop-VMHostService -HostService ($vmHost | Get-VMHostService | Where-Object {$_.key -eq "TSM-SSH"}) -Confirm:$false | Select-Object VMHost,Key,Label,Running
 			}
 			$cont = $true
 		}
